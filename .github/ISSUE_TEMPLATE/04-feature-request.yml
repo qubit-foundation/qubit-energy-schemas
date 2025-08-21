@@ -1,0 +1,115 @@
+name: ✨ Feature Request
+description: Request new tooling features or enhancements
+title: "[Feature]: "
+labels: [enhancement, needs-discussion]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request new features for the schema tooling, validation scripts, or other project infrastructure.
+
+  - type: dropdown
+    id: feature-category
+    attributes:
+      label: Feature Category
+      description: What type of feature are you requesting?
+      options:
+        - Validation tooling
+        - Type generation
+        - Documentation generation
+        - API integration
+        - Testing framework
+        - CI/CD improvements
+        - Development tools
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve?
+      placeholder: |
+        Currently, developers have to manually check if their API responses
+        match the schema format. There's no automated way to validate
+        API responses against schemas in a running system.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: Describe your ideal solution
+      placeholder: |
+        Create a middleware library that can validate API responses
+        against schemas in real-time, with configurable error handling
+        and logging of validation failures.
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: Provide a specific use case or user story
+      placeholder: |
+        As an API developer, I want to ensure that my energy data API
+        always returns data that conforms to the Qubit schemas,
+        so that consuming applications can rely on the data structure.
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: What would make this feature complete?
+      placeholder: |
+        - Middleware available for Express.js and FastAPI
+        - Configurable validation levels (strict/lenient)
+        - Performance impact < 5ms per request
+        - Clear error messages for schema violations
+        - Optional logging integration
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature?
+      options:
+        - Low - Would be nice to have
+        - Medium - Would improve developer experience
+        - High - Essential for production use
+        - Critical - Blocking current implementations
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Have you considered any alternative approaches?
+      placeholder: |
+        - Using existing JSON Schema validation libraries directly
+        - Building custom validation into each application
+        - Using OpenAPI schema validation instead
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other context about the feature request
+      placeholder: |
+        This feature would be especially valuable for organizations
+        implementing multiple energy data APIs that need to ensure
+        consistency across their systems.
+
+  - type: checkboxes
+    id: implementation
+    attributes:
+      label: Implementation
+      description: Are you willing to help implement this feature?
+      options:
+        - label: I can contribute code
+        - label: I can help with design and requirements
+        - label: I can provide testing and feedback
+        - label: I can write documentation
+        - label: I can help with project management

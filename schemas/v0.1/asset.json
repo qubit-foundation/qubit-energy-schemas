@@ -1,0 +1,269 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.qubit.energy/v0.1/asset.json",
+  "title": "Asset",
+  "description": "A physical energy asset or equipment such as solar panels, batteries, or generators",
+  "type": "object",
+  
+  "properties": {
+    "id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/asset_id"
+    },
+    
+    "site_id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/site_id",
+      "description": "Site where asset is located"
+    },
+    
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Asset name"
+    },
+    
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Asset description"
+    },
+    
+    "type": {
+      "$ref": "_definitions.json#/$defs/asset_type"
+    },
+    
+    "subtype": {
+      "type": "string",
+      "description": "Asset subtype for additional categorization"
+    },
+    
+    "location": {
+      "type": "object",
+      "properties": {
+        "building": {
+          "type": "string",
+          "description": "Building name or identifier"
+        },
+        "floor": {
+          "type": "string",
+          "description": "Floor or level"
+        },
+        "room": {
+          "type": "string",
+          "description": "Room or area"
+        },
+        "rack": {
+          "type": "string",
+          "description": "Rack or mounting location"
+        },
+        "coordinates": {
+          "$ref": "_definitions.json#/$defs/location",
+          "description": "GPS coordinates if different from site"
+        }
+      },
+      "description": "Asset location within site"
+    },
+    
+    "capacity": {
+      "$ref": "_definitions.json#/$defs/capacity",
+      "description": "Asset capacity specifications"
+    },
+    
+    "electrical": {
+      "type": "object",
+      "properties": {
+        "voltage_v": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Nominal voltage"
+        },
+        "current_a": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Nominal current"
+        },
+        "phases": {
+          "$ref": "_definitions.json#/$defs/phase"
+        },
+        "frequency_hz": {
+          "type": "number",
+          "enum": [50, 60],
+          "description": "Nominal frequency"
+        },
+        "power_factor": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "Power factor"
+        }
+      },
+      "description": "Electrical characteristics"
+    },
+    
+    "efficiency": {
+      "$ref": "_definitions.json#/$defs/efficiency",
+      "description": "Asset efficiency rating"
+    },
+    
+    "performance": {
+      "type": "object",
+      "properties": {
+        "degradation_rate_percent_year": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Annual degradation rate"
+        },
+        "temperature_coefficient_percent_c": {
+          "type": "number",
+          "description": "Temperature coefficient"
+        },
+        "response_time_s": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Response time in seconds"
+        },
+        "ramp_rate_kw_min": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Ramp rate in kW per minute"
+        }
+      },
+      "description": "Performance characteristics"
+    },
+    
+    "operational_limits": {
+      "type": "object",
+      "properties": {
+        "min_operating_temp_c": {
+          "type": "number",
+          "description": "Minimum operating temperature"
+        },
+        "max_operating_temp_c": {
+          "type": "number",
+          "description": "Maximum operating temperature"
+        },
+        "max_humidity_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Maximum humidity"
+        },
+        "max_altitude_m": {
+          "type": "number",
+          "description": "Maximum altitude"
+        }
+      },
+      "description": "Operational limits"
+    },
+    
+    "manufacturer_info": {
+      "$ref": "_definitions.json#/$defs/manufacturer_info"
+    },
+    
+    "warranty": {
+      "type": "object",
+      "properties": {
+        "start_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Warranty start date"
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Warranty end date"
+        },
+        "type": {
+          "type": "string",
+          "description": "Warranty type"
+        },
+        "provider": {
+          "type": "string",
+          "description": "Warranty provider"
+        }
+      },
+      "description": "Warranty information"
+    },
+    
+    "commissioning_info": {
+      "$ref": "_definitions.json#/$defs/commissioning_info"
+    },
+    
+    "maintenance_info": {
+      "$ref": "_definitions.json#/$defs/maintenance_info"
+    },
+    
+    "interconnection": {
+      "type": "object",
+      "properties": {
+        "connection_point": {
+          "type": "string",
+          "description": "Electrical connection point"
+        },
+        "breaker_id": {
+          "type": "string",
+          "description": "Circuit breaker identifier"
+        },
+        "transformer_id": {
+          "$ref": "_definitions.json#/$defs/id_patterns/asset_id",
+          "description": "Connected transformer asset"
+        },
+        "inverter_id": {
+          "$ref": "_definitions.json#/$defs/id_patterns/asset_id",
+          "description": "Connected inverter asset"
+        }
+      },
+      "description": "Interconnection details"
+    },
+    
+    "control_system": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Control system type"
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Communication protocol"
+        },
+        "ip_address": {
+          "type": "string",
+          "format": "ipv4",
+          "description": "IP address if networked"
+        },
+        "modbus_address": {
+          "type": "integer",
+          "description": "Modbus address if applicable"
+        }
+      },
+      "description": "Control system integration"
+    },
+    
+    "parent_asset_id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/asset_id",
+      "description": "Parent asset for hierarchical relationships"
+    },
+    
+    "status": {
+      "$ref": "_definitions.json#/$defs/status"
+    },
+    
+    "metadata": {
+      "$ref": "_definitions.json#/$defs/metadata"
+    },
+    
+    "created_at": {
+      "$ref": "_definitions.json#/$defs/timestamp",
+      "description": "Creation timestamp"
+    },
+    
+    "updated_at": {
+      "$ref": "_definitions.json#/$defs/timestamp",
+      "description": "Last update timestamp"
+    }
+  },
+  
+  "required": ["id", "site_id", "name", "type"],
+  "additionalProperties": false
+}

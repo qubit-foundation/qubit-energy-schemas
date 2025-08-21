@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.qubit.energy/v0.1/organization.json",
+  "title": "Organization",
+  "description": "An entity that owns or operates energy assets, such as a company, utility, or facility manager",
+  "type": "object",
+  
+  "properties": {
+    "id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/organization_id"
+    },
+    
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Organization name"
+    },
+    
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Organization description"
+    },
+    
+    "type": {
+      "type": "string",
+      "enum": [
+        "utility",
+        "ipp",
+        "commercial",
+        "industrial",
+        "residential",
+        "government",
+        "nonprofit",
+        "aggregator",
+        "retailer",
+        "other"
+      ],
+      "description": "Type of organization"
+    },
+    
+    "industry": {
+      "type": "string",
+      "description": "Primary industry sector"
+    },
+    
+    "headquarters": {
+      "$ref": "_definitions.json#/$defs/location",
+      "description": "Headquarters location"
+    },
+    
+    "contact": {
+      "$ref": "_definitions.json#/$defs/contact",
+      "description": "Primary contact information"
+    },
+    
+    "identifiers": {
+      "type": "object",
+      "properties": {
+        "tax_id": {
+          "type": "string",
+          "description": "Tax identification number"
+        },
+        "duns": {
+          "type": "string",
+          "pattern": "^[0-9]{9}$",
+          "description": "DUNS number"
+        },
+        "lei": {
+          "type": "string",
+          "pattern": "^[A-Z0-9]{20}$",
+          "description": "Legal Entity Identifier"
+        },
+        "utility_id": {
+          "type": "string",
+          "description": "Utility company identifier"
+        }
+      },
+      "description": "External identifiers"
+    },
+    
+    "certifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Certification type (ISO 50001, RE100, etc.)"
+          },
+          "issuer": {
+            "type": "string",
+            "description": "Certification issuing body"
+          },
+          "issued_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date certification was issued"
+          },
+          "expiry_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Date certification expires"
+          }
+        },
+        "required": ["type", "issuer"]
+      },
+      "description": "Environmental and energy certifications"
+    },
+    
+    "parent_organization_id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/organization_id",
+      "description": "Parent organization if subsidiary"
+    },
+    
+    "website": {
+      "type": "string",
+      "format": "uri",
+      "description": "Organization website URL"
+    },
+    
+    "timezone": {
+      "type": "string",
+      "description": "Default timezone for organization operations"
+    },
+    
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "Default currency code (ISO 4217)"
+    },
+    
+    "fiscal_year_start": {
+      "type": "string",
+      "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+      "description": "Fiscal year start date (MM-DD)"
+    },
+    
+    "energy_goals": {
+      "type": "object",
+      "properties": {
+        "renewable_target_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Target renewable energy percentage"
+        },
+        "carbon_neutral_target_year": {
+          "type": "integer",
+          "minimum": 2020,
+          "maximum": 2100,
+          "description": "Target year for carbon neutrality"
+        },
+        "energy_reduction_target_percent": {
+          "type": "number",
+          "description": "Energy reduction target percentage from baseline"
+        },
+        "baseline_year": {
+          "type": "integer",
+          "minimum": 1990,
+          "maximum": 2100,
+          "description": "Baseline year for reduction targets"
+        }
+      },
+      "description": "Sustainability and energy goals"
+    },
+    
+    "status": {
+      "$ref": "_definitions.json#/$defs/status"
+    },
+    
+    "metadata": {
+      "$ref": "_definitions.json#/$defs/metadata"
+    },
+    
+    "created_at": {
+      "$ref": "_definitions.json#/$defs/timestamp",
+      "description": "Creation timestamp"
+    },
+    
+    "updated_at": {
+      "$ref": "_definitions.json#/$defs/timestamp",
+      "description": "Last update timestamp"
+    }
+  },
+  
+  "required": ["id", "name", "type"],
+  "additionalProperties": false,
+  
+  "examples": [
+    {
+      "id": "org_acme_energy_001",
+      "name": "ACME Energy Corporation",
+      "type": "utility",
+      "description": "Regional utility serving 2M customers",
+      "industry": "Electric Power Generation",
+      "headquarters": {
+        "latitude": 37.7749,
+        "longitude": -122.4194,
+        "timezone": "America/Los_Angeles",
+        "address": {
+          "street": "123 Energy Way",
+          "city": "San Francisco",
+          "state": "CA",
+          "postal_code": "94105",
+          "country": "USA"
+        }
+      },
+      "contact": {
+        "name": "Jane Smith",
+        "email": "jane.smith@acme-energy.com",
+        "phone": "+1-415-555-0100",
+        "role": "Energy Manager"
+      },
+      "website": "https://www.acme-energy.com",
+      "currency": "USD",
+      "status": "active",
+      "created_at": "2025-01-15T08:00:00Z",
+      "updated_at": "2025-01-15T08:00:00Z"
+    }
+  ]
+}

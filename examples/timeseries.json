@@ -1,0 +1,196 @@
+{
+  "id": "tse_power_output_20250115",
+  "source": {
+    "type": "meter",
+    "meter_id": "met_main_revenue_01",
+    "site_id": "sit_solar_farm_01"
+  },
+  "measurement": {
+    "parameter": "active_power_export",
+    "unit": "kW",
+    "description": "Net active power exported to grid"
+  },
+  "interval": "15m",
+  "aggregation": "average",
+  "timezone": "UTC",
+  "period": {
+    "start": "2025-01-15T00:00:00Z",
+    "end": "2025-01-15T12:00:00Z"
+  },
+  "data_points": [
+    {
+      "timestamp": "2025-01-15T00:00:00Z",
+      "value": 0,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T00:15:00Z",
+      "value": 0,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T00:30:00Z",
+      "value": 0,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T00:45:00Z",
+      "value": 0,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T01:00:00Z",
+      "value": 0,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T06:00:00Z",
+      "value": 0,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T06:15:00Z",
+      "value": 125,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T06:30:00Z",
+      "value": 450,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T06:45:00Z",
+      "value": 1200,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T07:00:00Z",
+      "value": 2500,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T07:15:00Z",
+      "value": 4200,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T07:30:00Z",
+      "value": 6800,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T07:45:00Z",
+      "value": 9500,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T08:00:00Z",
+      "value": 12000,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T08:15:00Z",
+      "value": 15500,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T08:30:00Z",
+      "value": 19200,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T08:45:00Z",
+      "value": 23000,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T09:00:00Z",
+      "value": 27500,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T09:15:00Z",
+      "value": 31000,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T09:30:00Z",
+      "value": 34500,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T09:45:00Z",
+      "value": 37800,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T10:00:00Z",
+      "value": 40500,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T10:15:00Z",
+      "value": 42000,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T10:30:00Z",
+      "value": 43200,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T10:45:00Z",
+      "value": 44100,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T11:00:00Z",
+      "value": 44800,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T11:15:00Z",
+      "value": 45200,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T11:30:00Z",
+      "value": 45500,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T11:45:00Z",
+      "value": 45300,
+      "quality": "measured"
+    },
+    {
+      "timestamp": "2025-01-15T12:00:00Z",
+      "value": 45000,
+      "quality": "measured"
+    }
+  ],
+  "statistics": {
+    "count": 30,
+    "missing_count": 0,
+    "min": 0,
+    "max": 45500,
+    "mean": 20150,
+    "median": 19200,
+    "std_dev": 17825,
+    "sum": 604500
+  },
+  "validation": {
+    "method": "range_check",
+    "timestamp": "2025-01-15T12:05:00Z",
+    "passed": true,
+    "errors": []
+  },
+  "metadata": {
+    "weather_conditions": "clear",
+    "curtailment_events": 0,
+    "data_source": "SCADA",
+    "validated_by": "automated"
+  },
+  "created_at": "2025-01-15T12:05:00Z",
+  "updated_at": "2025-01-15T12:05:00Z"
+}

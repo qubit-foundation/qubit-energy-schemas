@@ -1,0 +1,86 @@
+{
+  "id": "ast_battery_01",
+  "site_id": "sit_solar_farm_01",
+  "name": "Main Battery Energy Storage System",
+  "description": "10MW/40MWh lithium-ion battery storage system for solar smoothing and grid services",
+  "type": "battery_storage",
+  "subtype": "lithium_ion_utility_scale",
+  "location": {
+    "building": "BESS Building 1",
+    "floor": "Ground",
+    "room": "Container Bay A",
+    "coordinates": {
+      "latitude": 35.2275,
+      "longitude": -119.0190
+    }
+  },
+  "capacity": {
+    "power_kw": 10000,
+    "energy_kwh": 40000
+  },
+  "electrical": {
+    "voltage_v": 1500,
+    "current_a": 3850,
+    "phases": "three",
+    "frequency_hz": 60,
+    "power_factor": 0.99
+  },
+  "efficiency": 92.5,
+  "performance": {
+    "degradation_rate_percent_year": 2.5,
+    "temperature_coefficient_percent_c": -0.5,
+    "response_time_s": 0.2,
+    "ramp_rate_kw_min": 600000
+  },
+  "operational_limits": {
+    "min_operating_temp_c": -10,
+    "max_operating_temp_c": 45,
+    "max_humidity_percent": 95,
+    "max_altitude_m": 2000
+  },
+  "manufacturer_info": {
+    "manufacturer": "MegaBattery Corp",
+    "model": "MB-10000-40",
+    "serial_number": "MB2021Q2-1234",
+    "firmware_version": "3.2.1",
+    "manufacture_date": "2021-04-15"
+  },
+  "warranty": {
+    "start_date": "2021-06-01",
+    "end_date": "2031-06-01",
+    "type": "Performance Guarantee",
+    "provider": "MegaBattery Corp"
+  },
+  "commissioning_info": {
+    "commissioned_date": "2021-06-01",
+    "expected_lifetime_years": 15
+  },
+  "maintenance_info": {
+    "last_maintenance": "2024-12-15T08:00:00Z",
+    "next_maintenance": "2025-03-15T08:00:00Z",
+    "maintenance_interval_days": 90
+  },
+  "interconnection": {
+    "connection_point": "Main Switchgear MSB-01",
+    "breaker_id": "CB-BESS-01",
+    "transformer_id": "ast_transformer_01",
+    "inverter_id": "ast_inverter_bess_01"
+  },
+  "control_system": {
+    "type": "SCADA",
+    "protocol": "Modbus TCP",
+    "ip_address": "192.168.1.100",
+    "modbus_address": 1
+  },
+  "status": "active",
+  "metadata": {
+    "battery_chemistry": "NMC",
+    "cycle_count": 1250,
+    "state_of_health_percent": 96.5,
+    "auxiliary_power_kw": 50,
+    "cooling_type": "liquid",
+    "fire_suppression": "aerosol"
+  },
+  "created_at": "2021-05-01T08:00:00Z",
+  "updated_at": "2025-01-15T10:30:00Z"
+}

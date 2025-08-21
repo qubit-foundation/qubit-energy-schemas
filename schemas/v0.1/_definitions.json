@@ -1,0 +1,377 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.qubit.energy/v0.1/_definitions.json",
+  "title": "Common Definitions",
+  "description": "Shared definitions, enums, and patterns used across Qubit Energy schemas",
+  
+  "$defs": {
+    "id_patterns": {
+      "organization_id": {
+        "type": "string",
+        "pattern": "^org_[a-zA-Z0-9_-]+$",
+        "description": "Organization identifier"
+      },
+      "site_id": {
+        "type": "string",
+        "pattern": "^sit_[a-zA-Z0-9_-]+$",
+        "description": "Site identifier"
+      },
+      "asset_id": {
+        "type": "string",
+        "pattern": "^ast_[a-zA-Z0-9_-]+$",
+        "description": "Asset identifier"
+      },
+      "meter_id": {
+        "type": "string",
+        "pattern": "^met_[a-zA-Z0-9_-]+$",
+        "description": "Meter identifier"
+      },
+      "sensor_id": {
+        "type": "string",
+        "pattern": "^sen_[a-zA-Z0-9_-]+$",
+        "description": "Sensor identifier"
+      },
+      "timeseries_id": {
+        "type": "string",
+        "pattern": "^tse_[a-zA-Z0-9_-]+$",
+        "description": "TimeSeries identifier"
+      }
+    },
+    
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp in UTC"
+    },
+    
+    "location": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90,
+          "description": "Latitude in decimal degrees"
+        },
+        "longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "description": "Longitude in decimal degrees"
+        },
+        "altitude": {
+          "type": "number",
+          "description": "Altitude in meters above sea level"
+        },
+        "timezone": {
+          "type": "string",
+          "description": "IANA timezone identifier (e.g., 'America/New_York')"
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "street": { "type": "string" },
+            "city": { "type": "string" },
+            "state": { "type": "string" },
+            "postal_code": { "type": "string" },
+            "country": { "type": "string" }
+          }
+        }
+      },
+      "required": ["latitude", "longitude"]
+    },
+    
+    "status": {
+      "type": "string",
+      "enum": ["active", "inactive", "maintenance", "fault", "unknown"],
+      "description": "Operational status"
+    },
+    
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "solar_pv",
+        "wind_turbine",
+        "battery_storage",
+        "diesel_generator",
+        "natural_gas_generator",
+        "grid_connection",
+        "transformer",
+        "inverter",
+        "ev_charger",
+        "fuel_cell",
+        "hydro_turbine",
+        "heat_pump",
+        "chiller",
+        "boiler",
+        "other"
+      ],
+      "description": "Type of energy asset"
+    },
+    
+    "meter_type": {
+      "type": "string",
+      "enum": [
+        "main",
+        "submeter",
+        "generation",
+        "consumption",
+        "net",
+        "check",
+        "virtual"
+      ],
+      "description": "Type of energy meter"
+    },
+    
+    "sensor_type": {
+      "type": "string",
+      "enum": [
+        "temperature",
+        "humidity",
+        "pressure",
+        "irradiance",
+        "wind_speed",
+        "wind_direction",
+        "voltage",
+        "current",
+        "power",
+        "energy",
+        "frequency",
+        "power_factor",
+        "co2",
+        "occupancy",
+        "other"
+      ],
+      "description": "Type of sensor measurement"
+    },
+    
+    "measurement_unit": {
+      "type": "string",
+      "enum": [
+        "W",
+        "kW",
+        "MW",
+        "GW",
+        "Wh",
+        "kWh",
+        "MWh",
+        "GWh",
+        "V",
+        "kV",
+        "A",
+        "kA",
+        "Hz",
+        "celsius",
+        "fahrenheit",
+        "kelvin",
+        "percent",
+        "ppm",
+        "pascal",
+        "kPa",
+        "bar",
+        "psi",
+        "m/s",
+        "km/h",
+        "mph",
+        "W/m2",
+        "lux",
+        "degree",
+        "radian",
+        "dimensionless",
+        "boolean",
+        "count"
+      ],
+      "description": "Unit of measurement"
+    },
+    
+    "data_quality": {
+      "type": "string",
+      "enum": [
+        "measured",
+        "validated",
+        "estimated",
+        "interpolated",
+        "manual",
+        "missing",
+        "error"
+      ],
+      "description": "Data quality indicator"
+    },
+    
+    "phase": {
+      "type": "string",
+      "enum": ["A", "B", "C", "AB", "BC", "CA", "ABC", "single", "three"],
+      "description": "Electrical phase"
+    },
+    
+    "connection_type": {
+      "type": "string",
+      "enum": [
+        "grid_import",
+        "grid_export",
+        "island",
+        "microgrid",
+        "backup",
+        "parallel"
+      ],
+      "description": "Grid connection type"
+    },
+    
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Custom fields for extensibility"
+    },
+    
+    "contact": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Contact person name"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Contact email address"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Contact phone number"
+        },
+        "role": {
+          "type": "string",
+          "description": "Contact role or title"
+        }
+      }
+    },
+    
+    "capacity": {
+      "type": "object",
+      "properties": {
+        "power_kw": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Power capacity in kilowatts"
+        },
+        "energy_kwh": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Energy capacity in kilowatt-hours"
+        }
+      }
+    },
+    
+    "efficiency": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Efficiency percentage (0-100)"
+    },
+    
+    "data_interval": {
+      "type": "string",
+      "enum": [
+        "1s",
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "10m",
+        "15m",
+        "30m",
+        "1h",
+        "1d",
+        "1w",
+        "1M",
+        "irregular"
+      ],
+      "description": "Data recording interval"
+    },
+    
+    "aggregation_method": {
+      "type": "string",
+      "enum": [
+        "sum",
+        "average",
+        "min",
+        "max",
+        "first",
+        "last",
+        "count",
+        "median",
+        "mode",
+        "std_dev"
+      ],
+      "description": "Method for aggregating time series data"
+    },
+    
+    "manufacturer_info": {
+      "type": "object",
+      "properties": {
+        "manufacturer": {
+          "type": "string",
+          "description": "Equipment manufacturer name"
+        },
+        "model": {
+          "type": "string",
+          "description": "Equipment model number"
+        },
+        "serial_number": {
+          "type": "string",
+          "description": "Equipment serial number"
+        },
+        "firmware_version": {
+          "type": "string",
+          "description": "Firmware version"
+        },
+        "manufacture_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Manufacturing date"
+        }
+      }
+    },
+    
+    "maintenance_info": {
+      "type": "object",
+      "properties": {
+        "last_maintenance": {
+          "$ref": "#/$defs/timestamp",
+          "description": "Last maintenance timestamp"
+        },
+        "next_maintenance": {
+          "$ref": "#/$defs/timestamp",
+          "description": "Next scheduled maintenance"
+        },
+        "maintenance_interval_days": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maintenance interval in days"
+        }
+      }
+    },
+    
+    "commissioning_info": {
+      "type": "object",
+      "properties": {
+        "commissioned_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date when asset was commissioned"
+        },
+        "decommissioned_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date when asset was decommissioned"
+        },
+        "expected_lifetime_years": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Expected operational lifetime in years"
+        }
+      }
+    }
+  }
+}

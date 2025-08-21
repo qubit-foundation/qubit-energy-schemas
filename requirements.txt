@@ -1,0 +1,22 @@
+# Core validation
+jsonschema==4.23.0
+jsonschema-specifications==2024.10.1
+
+# Testing
+pytest==8.3.4
+pytest-cov==6.0.0
+
+# Type generation (optional)
+datamodel-code-generator==0.26.3
+
+# Utilities
+pyyaml==6.0.2
+click==8.1.8
+colorama==0.4.6
+tabulate==0.9.0
+
+# Development
+black==24.10.0
+ruff==0.8.4
+mypy==1.14.1
+pre-commit==4.0.1

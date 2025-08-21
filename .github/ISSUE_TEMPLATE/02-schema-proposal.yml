@@ -1,0 +1,154 @@
+name: 💡 Schema Proposal
+description: Propose a new schema or changes to existing schemas
+title: "[Schema]: "
+labels: [schema, enhancement, needs-discussion]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for contributing to the Qubit Energy schemas! This template helps us evaluate and implement schema changes effectively.
+
+  - type: dropdown
+    id: proposal-type
+    attributes:
+      label: Proposal Type
+      description: What type of schema change are you proposing?
+      options:
+        - New schema
+        - Modify existing schema
+        - Add new fields
+        - Remove/deprecate fields
+        - Change field types
+        - Standards alignment
+    validations:
+      required: true
+
+  - type: input
+    id: schema-name
+    attributes:
+      label: Schema Name
+      description: Which schema is this about? (e.g., "asset", "meter", or "new_weather_schema")
+      placeholder: asset
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: Describe the real-world use case that requires this change
+      placeholder: |
+        We need to track electric vehicle charging sessions with connector types, 
+        payment methods, and user authentication for a fleet management system...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-changes
+    attributes:
+      label: Proposed Changes
+      description: Detail the specific schema changes you're proposing
+      placeholder: |
+        Add new fields to asset schema:
+        - connector_type (enum: cType1, cType2, cCCS1, cCCS2, cCHAdeMO)
+        - max_charging_power_kw (number, minimum: 0)
+        - authentication_methods (array of strings)
+    validations:
+      required: true
+
+  - type: textarea
+    id: example-json
+    attributes:
+      label: Example JSON
+      description: Provide an example of how the schema would be used
+      render: json
+      placeholder: |
+        {
+          "id": "ast_ev_charger_01",
+          "site_id": "sit_parking_garage",
+          "name": "EV Charger Station 1",
+          "type": "ev_charger",
+          "connector_type": "cType2",
+          "max_charging_power_kw": 22,
+          "authentication_methods": ["rfid", "mobile_app", "credit_card"]
+        }
+
+  - type: textarea
+    id: standards-alignment
+    attributes:
+      label: Standards Alignment
+      description: How does this align with industry standards?
+      placeholder: |
+        This aligns with OCPP 2.0.1 connector types and ISO 15118 authentication methods.
+        Reference: OCPP specification section 4.2.3
+
+  - type: textarea
+    id: backwards-compatibility
+    attributes:
+      label: Backwards Compatibility
+      description: How will this affect existing implementations?
+      placeholder: |
+        - New fields are optional, so existing data remains valid
+        - No breaking changes to current schema structure
+        - Migration guide needed for systems wanting to adopt new fields
+
+  - type: textarea
+    id: validation-rules
+    attributes:
+      label: Validation Rules
+      description: What validation rules should be applied?
+      placeholder: |
+        - connector_type must be one of the defined enum values
+        - max_charging_power_kw must be positive
+        - authentication_methods array cannot be empty
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How urgent is this change?
+      options:
+        - Low - Nice to have
+        - Medium - Needed for common use cases
+        - High - Critical for industry adoption
+        - Urgent - Blocking current implementations
+
+  - type: checkboxes
+    id: implementation
+    attributes:
+      label: Implementation
+      description: What are you willing to help with?
+      options:
+        - label: I can provide the JSON schema definition
+        - label: I can create example JSON files
+        - label: I can write documentation
+        - label: I can help with validation testing
+        - label: I can contribute to standards mapping
+
+  - type: textarea
+    id: related-systems
+    attributes:
+      label: Related Systems
+      description: Which energy systems or protocols would benefit from this?
+      placeholder: |
+        - EV charging networks (ChargePoint, EVgo)
+        - Fleet management systems
+        - Smart grid demand response
+        - Energy trading platforms
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched existing schemas to ensure this isn't already covered
+          required: true
+        - label: I have reviewed the schema design conventions
+          required: true
+        - label: I have considered backwards compatibility
+          required: true
+        - label: This proposal serves a real industry need
+          required: true

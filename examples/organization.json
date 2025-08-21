@@ -1,0 +1,62 @@
+{
+  "id": "org_greenenergy_corp",
+  "name": "Green Energy Corporation",
+  "description": "Leading renewable energy provider serving commercial and industrial customers",
+  "type": "ipp",
+  "industry": "Renewable Energy Generation",
+  "headquarters": {
+    "latitude": 37.7749,
+    "longitude": -122.4194,
+    "timezone": "America/Los_Angeles",
+    "address": {
+      "street": "100 Renewable Way",
+      "city": "San Francisco",
+      "state": "CA",
+      "postal_code": "94105",
+      "country": "USA"
+    }
+  },
+  "contact": {
+    "name": "Sarah Johnson",
+    "email": "sarah.johnson@greenenergy.com",
+    "phone": "+1-415-555-0200",
+    "role": "VP of Operations"
+  },
+  "identifiers": {
+    "tax_id": "12-3456789",
+    "duns": "123456789",
+    "lei": "549300VEIINM12345678"
+  },
+  "certifications": [
+    {
+      "type": "ISO 50001",
+      "issuer": "ISO",
+      "issued_date": "2023-06-15",
+      "expiry_date": "2026-06-14"
+    },
+    {
+      "type": "B Corporation",
+      "issuer": "B Lab",
+      "issued_date": "2022-01-01",
+      "expiry_date": "2025-01-01"
+    }
+  ],
+  "website": "https://www.greenenergy.com",
+  "timezone": "America/Los_Angeles",
+  "currency": "USD",
+  "fiscal_year_start": "01-01",
+  "energy_goals": {
+    "renewable_target_percent": 100,
+    "carbon_neutral_target_year": 2030,
+    "energy_reduction_target_percent": 25,
+    "baseline_year": 2020
+  },
+  "status": "active",
+  "metadata": {
+    "employees": 500,
+    "annual_revenue_usd": 250000000,
+    "markets_served": ["California", "Oregon", "Washington"]
+  },
+  "created_at": "2020-01-15T08:00:00Z",
+  "updated_at": "2025-01-15T10:30:00Z"
+}

@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.qubit.energy/v0.1/site.json",
+  "title": "Site",
+  "description": "A physical location where energy assets are installed and operated",
+  "type": "object",
+  
+  "properties": {
+    "id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/site_id"
+    },
+    
+    "organization_id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/organization_id",
+      "description": "Organization that owns or operates this site"
+    },
+    
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Site name"
+    },
+    
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Site description"
+    },
+    
+    "type": {
+      "type": "string",
+      "enum": [
+        "generation",
+        "transmission",
+        "distribution",
+        "commercial_building",
+        "industrial_facility",
+        "residential_complex",
+        "data_center",
+        "hospital",
+        "school",
+        "warehouse",
+        "retail",
+        "mixed_use",
+        "substation",
+        "microgrid",
+        "other"
+      ],
+      "description": "Type of site"
+    },
+    
+    "location": {
+      "$ref": "_definitions.json#/$defs/location",
+      "description": "Site geographic location"
+    },
+    
+    "area_m2": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total site area in square meters"
+    },
+    
+    "building_area_m2": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total building floor area in square meters"
+    },
+    
+    "occupancy": {
+      "type": "object",
+      "properties": {
+        "typical": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Typical number of occupants"
+        },
+        "maximum": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum occupancy"
+        },
+        "schedule": {
+          "type": "string",
+          "description": "Occupancy schedule description"
+        }
+      },
+      "description": "Site occupancy information"
+    },
+    
+    "grid_connection": {
+      "type": "object",
+      "properties": {
+        "utility": {
+          "type": "string",
+          "description": "Utility company name"
+        },
+        "utility_account_id": {
+          "type": "string",
+          "description": "Utility account identifier"
+        },
+        "connection_type": {
+          "$ref": "_definitions.json#/$defs/connection_type"
+        },
+        "voltage_level_kv": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Grid connection voltage in kilovolts"
+        },
+        "max_import_kw": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Maximum import capacity in kilowatts"
+        },
+        "max_export_kw": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Maximum export capacity in kilowatts"
+        },
+        "interconnection_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of grid interconnection"
+        }
+      },
+      "description": "Grid connection details"
+    },
+    
+    "renewable_resources": {
+      "type": "object",
+      "properties": {
+        "solar": {
+          "type": "object",
+          "properties": {
+            "annual_ghi_kwh_m2": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Annual global horizontal irradiance"
+            },
+            "annual_dni_kwh_m2": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Annual direct normal irradiance"
+            },
+            "shading_factor": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Shading factor (0-1)"
+            }
+          }
+        },
+        "wind": {
+          "type": "object",
+          "properties": {
+            "average_speed_ms": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Average wind speed at hub height"
+            },
+            "measurement_height_m": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Wind measurement height in meters"
+            },
+            "wind_class": {
+              "type": "string",
+              "description": "IEC wind class"
+            }
+          }
+        }
+      },
+      "description": "Renewable resource availability"
+    },
+    
+    "energy_profile": {
+      "type": "object",
+      "properties": {
+        "annual_consumption_kwh": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Annual energy consumption"
+        },
+        "annual_generation_kwh": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Annual energy generation"
+        },
+        "peak_demand_kw": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Peak demand in kilowatts"
+        },
+        "base_load_kw": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Base load in kilowatts"
+        },
+        "load_factor": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Load factor (average/peak)"
+        }
+      },
+      "description": "Site energy profile"
+    },
+    
+    "operating_hours": {
+      "type": "object",
+      "properties": {
+        "monday": { "type": "string" },
+        "tuesday": { "type": "string" },
+        "wednesday": { "type": "string" },
+        "thursday": { "type": "string" },
+        "friday": { "type": "string" },
+        "saturday": { "type": "string" },
+        "sunday": { "type": "string" },
+        "holidays": { "type": "string" }
+      },
+      "description": "Site operating hours"
+    },
+    
+    "contact": {
+      "$ref": "_definitions.json#/$defs/contact",
+      "description": "Site contact information"
+    },
+    
+    "commissioning_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Site commissioning date"
+    },
+    
+    "status": {
+      "$ref": "_definitions.json#/$defs/status"
+    },
+    
+    "metadata": {
+      "$ref": "_definitions.json#/$defs/metadata"
+    },
+    
+    "created_at": {
+      "$ref": "_definitions.json#/$defs/timestamp",
+      "description": "Creation timestamp"
+    },
+    
+    "updated_at": {
+      "$ref": "_definitions.json#/$defs/timestamp",
+      "description": "Last update timestamp"
+    }
+  },
+  
+  "required": ["id", "organization_id", "name", "type", "location"],
+  "additionalProperties": false
+}

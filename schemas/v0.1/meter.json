@@ -1,0 +1,288 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.qubit.energy/v0.1/meter.json",
+  "title": "Meter",
+  "description": "An energy measurement device that records consumption, generation, or other electrical parameters",
+  "type": "object",
+  
+  "properties": {
+    "id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/meter_id"
+    },
+    
+    "site_id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/site_id",
+      "description": "Site where meter is installed"
+    },
+    
+    "asset_id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/asset_id",
+      "description": "Asset being metered (if applicable)"
+    },
+    
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Meter name"
+    },
+    
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Meter description"
+    },
+    
+    "type": {
+      "$ref": "_definitions.json#/$defs/meter_type"
+    },
+    
+    "measurement_point": {
+      "type": "string",
+      "description": "Description of what is being measured"
+    },
+    
+    "direction": {
+      "type": "string",
+      "enum": ["import", "export", "net", "total", "bidirectional"],
+      "description": "Measurement direction"
+    },
+    
+    "measurements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "parameter": {
+            "type": "string",
+            "enum": [
+              "active_power",
+              "reactive_power",
+              "apparent_power",
+              "active_energy",
+              "reactive_energy",
+              "voltage",
+              "current",
+              "frequency",
+              "power_factor",
+              "thd_voltage",
+              "thd_current"
+            ],
+            "description": "Measured parameter"
+          },
+          "unit": {
+            "$ref": "_definitions.json#/$defs/measurement_unit"
+          },
+          "phases": {
+            "$ref": "_definitions.json#/$defs/phase"
+          },
+          "accuracy_percent": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Measurement accuracy percentage"
+          }
+        },
+        "required": ["parameter", "unit"]
+      },
+      "description": "Parameters measured by this meter"
+    },
+    
+    "communication": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "enum": [
+            "modbus_rtu",
+            "modbus_tcp",
+            "bacnet",
+            "mqtt",
+            "opcua",
+            "iec61850",
+            "dlms",
+            "m-bus",
+            "pulse",
+            "analog",
+            "other"
+          ],
+          "description": "Communication protocol"
+        },
+        "interface": {
+          "type": "string",
+          "enum": ["rs485", "rs232", "ethernet", "wifi", "cellular", "lora", "other"],
+          "description": "Physical interface"
+        },
+        "address": {
+          "type": "string",
+          "description": "Network or device address"
+        },
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "Network port if applicable"
+        },
+        "baud_rate": {
+          "type": "integer",
+          "description": "Baud rate for serial communication"
+        }
+      },
+      "description": "Communication settings"
+    },
+    
+    "data_collection": {
+      "type": "object",
+      "properties": {
+        "interval": {
+          "$ref": "_definitions.json#/$defs/data_interval"
+        },
+        "retention_days": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Data retention period in days"
+        },
+        "aggregation": {
+          "$ref": "_definitions.json#/$defs/aggregation_method"
+        },
+        "last_read": {
+          "$ref": "_definitions.json#/$defs/timestamp",
+          "description": "Last successful read timestamp"
+        }
+      },
+      "description": "Data collection configuration"
+    },
+    
+    "accuracy_class": {
+      "type": "string",
+      "enum": ["0.1", "0.2", "0.5", "1.0", "2.0"],
+      "description": "IEC accuracy class"
+    },
+    
+    "ct_ratio": {
+      "type": "string",
+      "pattern": "^[0-9]+:[0-9]+$",
+      "description": "Current transformer ratio (e.g., '100:5')"
+    },
+    
+    "vt_ratio": {
+      "type": "string",
+      "pattern": "^[0-9]+:[0-9]+$",
+      "description": "Voltage transformer ratio"
+    },
+    
+    "multiplier": {
+      "type": "number",
+      "minimum": 0,
+      "default": 1,
+      "description": "Meter reading multiplier"
+    },
+    
+    "manufacturer_info": {
+      "$ref": "_definitions.json#/$defs/manufacturer_info"
+    },
+    
+    "installation": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Installation date"
+        },
+        "location": {
+          "type": "string",
+          "description": "Physical installation location"
+        },
+        "installer": {
+          "type": "string",
+          "description": "Installation company or technician"
+        }
+      },
+      "description": "Installation details"
+    },
+    
+    "calibration": {
+      "type": "object",
+      "properties": {
+        "last_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Last calibration date"
+        },
+        "next_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Next calibration due date"
+        },
+        "certificate_number": {
+          "type": "string",
+          "description": "Calibration certificate number"
+        }
+      },
+      "description": "Calibration information"
+    },
+    
+    "billing": {
+      "type": "object",
+      "properties": {
+        "is_billing_meter": {
+          "type": "boolean",
+          "description": "Whether used for billing"
+        },
+        "utility_meter_id": {
+          "type": "string",
+          "description": "Utility meter identifier"
+        },
+        "rate_schedule": {
+          "type": "string",
+          "description": "Applicable rate schedule"
+        }
+      },
+      "description": "Billing-related information"
+    },
+    
+    "virtual_meter": {
+      "type": "object",
+      "properties": {
+        "is_virtual": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether this is a virtual/calculated meter"
+        },
+        "formula": {
+          "type": "string",
+          "description": "Calculation formula if virtual"
+        },
+        "source_meters": {
+          "type": "array",
+          "items": {
+            "$ref": "_definitions.json#/$defs/id_patterns/meter_id"
+          },
+          "description": "Source meters for virtual calculation"
+        }
+      },
+      "description": "Virtual meter configuration"
+    },
+    
+    "status": {
+      "$ref": "_definitions.json#/$defs/status"
+    },
+    
+    "metadata": {
+      "$ref": "_definitions.json#/$defs/metadata"
+    },
+    
+    "created_at": {
+      "$ref": "_definitions.json#/$defs/timestamp",
+      "description": "Creation timestamp"
+    },
+    
+    "updated_at": {
+      "$ref": "_definitions.json#/$defs/timestamp",
+      "description": "Last update timestamp"
+    }
+  },
+  
+  "required": ["id", "site_id", "name", "type", "measurements"],
+  "additionalProperties": false
+}

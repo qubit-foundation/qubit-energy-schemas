@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.qubit.energy/v0.1/timeseries.json",
+  "title": "TimeSeries",
+  "description": "Time-stamped measurement data from meters, sensors, or calculated values",
+  "type": "object",
+  
+  "properties": {
+    "id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/timeseries_id"
+    },
+    
+    "source": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["meter", "sensor", "calculated", "forecast", "manual"],
+          "description": "Source type of the time series data"
+        },
+        "meter_id": {
+          "$ref": "_definitions.json#/$defs/id_patterns/meter_id",
+          "description": "Source meter ID if applicable"
+        },
+        "sensor_id": {
+          "$ref": "_definitions.json#/$defs/id_patterns/sensor_id",
+          "description": "Source sensor ID if applicable"
+        },
+        "asset_id": {
+          "$ref": "_definitions.json#/$defs/id_patterns/asset_id",
+          "description": "Related asset ID if applicable"
+        },
+        "site_id": {
+          "$ref": "_definitions.json#/$defs/id_patterns/site_id",
+          "description": "Site ID for this time series"
+        }
+      },
+      "required": ["type", "site_id"],
+      "description": "Data source information"
+    },
+    
+    "measurement": {
+      "type": "object",
+      "properties": {
+        "parameter": {
+          "type": "string",
+          "description": "Measured parameter name"
+        },
+        "unit": {
+          "$ref": "_definitions.json#/$defs/measurement_unit"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of what is measured"
+        }
+      },
+      "required": ["parameter", "unit"],
+      "description": "Measurement details"
+    },
+    
+    "interval": {
+      "$ref": "_definitions.json#/$defs/data_interval",
+      "description": "Data recording interval"
+    },
+    
+    "aggregation": {
+      "$ref": "_definitions.json#/$defs/aggregation_method",
+      "description": "How values are aggregated"
+    },
+    
+    "timezone": {
+      "type": "string",
+      "default": "UTC",
+      "description": "Timezone for timestamps (default UTC)"
+    },
+    
+    "data_points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "$ref": "_definitions.json#/$defs/timestamp"
+          },
+          "value": {
+            "oneOf": [
+              { "type": "number" },
+              { "type": "boolean" },
+              { "type": "string" },
+              { "type": "null" }
+            ],
+            "description": "Measured value"
+          },
+          "quality": {
+            "$ref": "_definitions.json#/$defs/data_quality"
+          },
+          "flags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "power_outage",
+                "communication_error",
+                "out_of_range",
+                "frozen_value",
+                "manual_override",
+                "interpolated",
+                "estimated",
+                "validated",
+                "billing"
+              ]
+            },
+            "description": "Data point flags"
+          }
+        },
+        "required": ["timestamp", "value"]
+      },
+      "description": "Array of time series data points"
+    },
+    
+    "statistics": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of data points"
+        },
+        "missing_count": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of missing data points"
+        },
+        "min": {
+          "type": "number",
+          "description": "Minimum value"
+        },
+        "max": {
+          "type": "number",
+          "description": "Maximum value"
+        },
+        "mean": {
+          "type": "number",
+          "description": "Mean value"
+        },
+        "median": {
+          "type": "number",
+          "description": "Median value"
+        },
+        "std_dev": {
+          "type": "number",
+          "description": "Standard deviation"
+        },
+        "sum": {
+          "type": "number",
+          "description": "Sum of values"
+        }
+      },
+      "description": "Statistical summary"
+    },
+    
+    "period": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "$ref": "_definitions.json#/$defs/timestamp",
+          "description": "Period start timestamp"
+        },
+        "end": {
+          "$ref": "_definitions.json#/$defs/timestamp",
+          "description": "Period end timestamp"
+        }
+      },
+      "required": ["start", "end"],
+      "description": "Time period covered"
+    },
+    
+    "validation": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string",
+          "description": "Validation method used"
+        },
+        "timestamp": {
+          "$ref": "_definitions.json#/$defs/timestamp",
+          "description": "When validation was performed"
+        },
+        "passed": {
+          "type": "boolean",
+          "description": "Whether validation passed"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Validation errors found"
+        }
+      },
+      "description": "Data validation information"
+    },
+    
+    "metadata": {
+      "$ref": "_definitions.json#/$defs/metadata"
+    },
+    
+    "created_at": {
+      "$ref": "_definitions.json#/$defs/timestamp",
+      "description": "Creation timestamp"
+    },
+    
+    "updated_at": {
+      "$ref": "_definitions.json#/$defs/timestamp",
+      "description": "Last update timestamp"
+    }
+  },
+  
+  "required": ["id", "source", "measurement", "interval", "period", "data_points"],
+  "additionalProperties": false
+}

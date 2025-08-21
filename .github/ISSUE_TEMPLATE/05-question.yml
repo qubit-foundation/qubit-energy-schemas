@@ -1,0 +1,93 @@
+name: ❓ Question
+description: Ask questions about schemas, usage, or implementation
+title: "[Question]: "
+labels: [question, needs-response]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question about the schemas? We're here to help! 
+        
+        **Note**: For general discussions, consider using [GitHub Discussions](../../discussions) instead.
+
+  - type: dropdown
+    id: question-type
+    attributes:
+      label: Question Type
+      description: What type of question is this?
+      options:
+        - Schema usage
+        - Implementation guidance
+        - Best practices
+        - Standards compliance
+        - Tool usage
+        - Integration help
+        - Conceptual question
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: |
+        How should I model a solar panel with micro-inverters? 
+        Should each micro-inverter be a separate asset, or should 
+        they be represented as components of the solar panel asset?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Provide context about your use case or scenario
+      placeholder: |
+        I'm building a monitoring system for a 500kW solar array
+        with 1000 panels, each with its own micro-inverter.
+        I need to track both panel-level and inverter-level data.
+
+  - type: textarea
+    id: attempted-solution
+    attributes:
+      label: What Have You Tried?
+      description: What approaches have you already considered or tried?
+      placeholder: |
+        I tried creating separate asset records for each micro-inverter,
+        but that resulted in 1000+ asset records which seems excessive.
+        I also considered using the asset hierarchy feature...
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How quickly do you need an answer?
+      options:
+        - No rush - when convenient
+        - Within a week - planning phase
+        - Within a few days - active development
+        - ASAP - production issue
+
+  - type: textarea
+    id: related-docs
+    attributes:
+      label: Related Documentation
+      description: Have you checked any existing documentation?
+      placeholder: |
+        I've read the asset schema documentation and the conventions guide,
+        but couldn't find clear guidance on this scenario.
+
+  - type: checkboxes
+    id: question-checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I've searched existing issues and discussions for similar questions
+          required: true
+        - label: I've provided enough context for others to understand my situation
+          required: true
+        - label: This is a specific question rather than a general discussion topic
+          required: false

@@ -1,0 +1,111 @@
+{
+  "id": "met_main_revenue_01",
+  "site_id": "sit_solar_farm_01",
+  "name": "Main Revenue Meter",
+  "description": "Primary utility revenue meter at point of interconnection",
+  "type": "main",
+  "measurement_point": "Point of Common Coupling (PCC)",
+  "direction": "bidirectional",
+  "measurements": [
+    {
+      "parameter": "active_energy",
+      "unit": "kWh",
+      "phases": "ABC",
+      "accuracy_percent": 0.2
+    },
+    {
+      "parameter": "reactive_energy",
+      "unit": "kVArh",
+      "phases": "ABC",
+      "accuracy_percent": 0.5
+    },
+    {
+      "parameter": "active_power",
+      "unit": "kW",
+      "phases": "ABC",
+      "accuracy_percent": 0.2
+    },
+    {
+      "parameter": "reactive_power",
+      "unit": "kVAr",
+      "phases": "ABC",
+      "accuracy_percent": 0.5
+    },
+    {
+      "parameter": "voltage",
+      "unit": "V",
+      "phases": "ABC",
+      "accuracy_percent": 0.1
+    },
+    {
+      "parameter": "current",
+      "unit": "A",
+      "phases": "ABC",
+      "accuracy_percent": 0.1
+    },
+    {
+      "parameter": "frequency",
+      "unit": "Hz",
+      "phases": "ABC",
+      "accuracy_percent": 0.01
+    },
+    {
+      "parameter": "power_factor",
+      "unit": "dimensionless",
+      "phases": "ABC",
+      "accuracy_percent": 0.5
+    }
+  ],
+  "communication": {
+    "protocol": "modbus_tcp",
+    "interface": "ethernet",
+    "address": "192.168.1.50",
+    "port": 502,
+    "baud_rate": 9600
+  },
+  "data_collection": {
+    "interval": "15m",
+    "retention_days": 400,
+    "aggregation": "average",
+    "last_read": "2025-01-15T10:15:00Z"
+  },
+  "accuracy_class": "0.2",
+  "ct_ratio": "3000:5",
+  "vt_ratio": "115000:120",
+  "multiplier": 600,
+  "manufacturer_info": {
+    "manufacturer": "PowerMeter Inc",
+    "model": "PM-9000",
+    "serial_number": "PM9K-2021-5678",
+    "firmware_version": "5.4.2",
+    "manufacture_date": "2021-03-01"
+  },
+  "installation": {
+    "date": "2021-05-15",
+    "location": "Main Switchgear Room",
+    "installer": "Certified Metering Services"
+  },
+  "calibration": {
+    "last_date": "2024-05-15",
+    "next_date": "2025-05-15",
+    "certificate_number": "CAL-2024-12345"
+  },
+  "billing": {
+    "is_billing_meter": true,
+    "utility_meter_id": "PGE-REV-12345",
+    "rate_schedule": "E-20-S"
+  },
+  "virtual_meter": {
+    "is_virtual": false
+  },
+  "status": "active",
+  "metadata": {
+    "data_logger": "Integrated",
+    "memory_size_mb": 512,
+    "event_log_enabled": true,
+    "power_quality_monitoring": true,
+    "harmonics_measurement": true
+  },
+  "created_at": "2021-05-01T08:00:00Z",
+  "updated_at": "2025-01-15T10:30:00Z"
+}

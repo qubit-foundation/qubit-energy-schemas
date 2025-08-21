@@ -1,0 +1,321 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.qubit.energy/v0.1/sensor.json",
+  "title": "Sensor",
+  "description": "A device that measures environmental or operational parameters",
+  "type": "object",
+  
+  "properties": {
+    "id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/sensor_id"
+    },
+    
+    "site_id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/site_id",
+      "description": "Site where sensor is installed"
+    },
+    
+    "asset_id": {
+      "$ref": "_definitions.json#/$defs/id_patterns/asset_id",
+      "description": "Asset being monitored (if applicable)"
+    },
+    
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Sensor name"
+    },
+    
+    "description": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Sensor description"
+    },
+    
+    "type": {
+      "$ref": "_definitions.json#/$defs/sensor_type"
+    },
+    
+    "measurement": {
+      "type": "object",
+      "properties": {
+        "parameter": {
+          "type": "string",
+          "description": "What is being measured"
+        },
+        "unit": {
+          "$ref": "_definitions.json#/$defs/measurement_unit"
+        },
+        "min_value": {
+          "type": "number",
+          "description": "Minimum measurable value"
+        },
+        "max_value": {
+          "type": "number",
+          "description": "Maximum measurable value"
+        },
+        "accuracy": {
+          "type": "number",
+          "description": "Measurement accuracy"
+        },
+        "accuracy_unit": {
+          "type": "string",
+          "description": "Accuracy unit (percent, absolute)"
+        },
+        "resolution": {
+          "type": "number",
+          "description": "Measurement resolution"
+        },
+        "response_time_ms": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Response time in milliseconds"
+        }
+      },
+      "required": ["parameter", "unit"],
+      "description": "Measurement specifications"
+    },
+    
+    "location": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Location description"
+        },
+        "mounting": {
+          "type": "string",
+          "enum": ["wall", "ceiling", "floor", "pole", "roof", "outdoor", "indoor", "duct", "pipe", "panel"],
+          "description": "Mounting type"
+        },
+        "height_m": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Installation height in meters"
+        },
+        "orientation": {
+          "type": "object",
+          "properties": {
+            "azimuth": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 360,
+              "description": "Azimuth angle in degrees"
+            },
+            "tilt": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90,
+              "description": "Tilt angle in degrees"
+            }
+          }
+        },
+        "coordinates": {
+          "$ref": "_definitions.json#/$defs/location",
+          "description": "GPS coordinates if available"
+        }
+      },
+      "description": "Sensor location details"
+    },
+    
+    "communication": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "type": "string",
+          "enum": [
+            "analog_4_20ma",
+            "analog_0_10v",
+            "digital",
+            "modbus",
+            "bacnet",
+            "mqtt",
+            "lora",
+            "zigbee",
+            "wifi",
+            "bluetooth",
+            "other"
+          ],
+          "description": "Communication protocol"
+        },
+        "interface": {
+          "type": "string",
+          "description": "Physical interface type"
+        },
+        "address": {
+          "type": "string",
+          "description": "Device address or identifier"
+        },
+        "polling_interval_s": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Polling interval in seconds"
+        }
+      },
+      "description": "Communication configuration"
+    },
+    
+    "data_processing": {
+      "type": "object",
+      "properties": {
+        "averaging_period_s": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Averaging period in seconds"
+        },
+        "filter_type": {
+          "type": "string",
+          "description": "Signal filter type"
+        },
+        "calibration_offset": {
+          "type": "number",
+          "description": "Calibration offset value"
+        },
+        "calibration_multiplier": {
+          "type": "number",
+          "default": 1,
+          "description": "Calibration multiplier"
+        },
+        "deadband": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Change deadband for reporting"
+        }
+      },
+      "description": "Data processing configuration"
+    },
+    
+    "power_supply": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["external", "battery", "solar", "energy_harvesting", "loop_powered"],
+          "description": "Power supply type"
+        },
+        "voltage_v": {
+          "type": "number",
+          "description": "Supply voltage"
+        },
+        "battery_type": {
+          "type": "string",
+          "description": "Battery type if applicable"
+        },
+        "battery_life_days": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Expected battery life in days"
+        }
+      },
+      "description": "Power supply information"
+    },
+    
+    "environmental_rating": {
+      "type": "object",
+      "properties": {
+        "ip_rating": {
+          "type": "string",
+          "pattern": "^IP[0-9]{2}$",
+          "description": "IP protection rating"
+        },
+        "operating_temp_min_c": {
+          "type": "number",
+          "description": "Minimum operating temperature"
+        },
+        "operating_temp_max_c": {
+          "type": "number",
+          "description": "Maximum operating temperature"
+        },
+        "operating_humidity_max_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Maximum operating humidity"
+        }
+      },
+      "description": "Environmental specifications"
+    },
+    
+    "manufacturer_info": {
+      "$ref": "_definitions.json#/$defs/manufacturer_info"
+    },
+    
+    "calibration": {
+      "type": "object",
+      "properties": {
+        "last_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Last calibration date"
+        },
+        "next_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Next calibration due date"
+        },
+        "method": {
+          "type": "string",
+          "description": "Calibration method"
+        },
+        "certificate_number": {
+          "type": "string",
+          "description": "Calibration certificate number"
+        }
+      },
+      "description": "Calibration information"
+    },
+    
+    "maintenance_info": {
+      "$ref": "_definitions.json#/$defs/maintenance_info"
+    },
+    
+    "alarms": {
+      "type": "object",
+      "properties": {
+        "high_threshold": {
+          "type": "number",
+          "description": "High alarm threshold"
+        },
+        "high_high_threshold": {
+          "type": "number",
+          "description": "High-high alarm threshold"
+        },
+        "low_threshold": {
+          "type": "number",
+          "description": "Low alarm threshold"
+        },
+        "low_low_threshold": {
+          "type": "number",
+          "description": "Low-low alarm threshold"
+        },
+        "rate_of_change_threshold": {
+          "type": "number",
+          "description": "Rate of change alarm threshold"
+        }
+      },
+      "description": "Alarm thresholds"
+    },
+    
+    "status": {
+      "$ref": "_definitions.json#/$defs/status"
+    },
+    
+    "metadata": {
+      "$ref": "_definitions.json#/$defs/metadata"
+    },
+    
+    "created_at": {
+      "$ref": "_definitions.json#/$defs/timestamp",
+      "description": "Creation timestamp"
+    },
+    
+    "updated_at": {
+      "$ref": "_definitions.json#/$defs/timestamp",
+      "description": "Last update timestamp"
+    }
+  },
+  
+  "required": ["id", "site_id", "name", "type", "measurement"],
+  "additionalProperties": false
+}

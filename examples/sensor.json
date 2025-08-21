@@ -1,0 +1,87 @@
+{
+  "id": "sen_irradiance_01",
+  "site_id": "sit_solar_farm_01",
+  "name": "Global Horizontal Irradiance Sensor",
+  "description": "Pyranometer measuring global horizontal solar irradiance",
+  "type": "irradiance",
+  "measurement": {
+    "parameter": "global_horizontal_irradiance",
+    "unit": "W/m2",
+    "min_value": 0,
+    "max_value": 1500,
+    "accuracy": 2,
+    "accuracy_unit": "percent",
+    "resolution": 1,
+    "response_time_ms": 1000
+  },
+  "location": {
+    "description": "Weather station mast, north side of site",
+    "mounting": "pole",
+    "height_m": 2,
+    "orientation": {
+      "azimuth": 0,
+      "tilt": 0
+    },
+    "coordinates": {
+      "latitude": 35.2280,
+      "longitude": -119.0185
+    }
+  },
+  "communication": {
+    "protocol": "analog_4_20ma",
+    "interface": "Current Loop",
+    "address": "AI-01",
+    "polling_interval_s": 1
+  },
+  "data_processing": {
+    "averaging_period_s": 60,
+    "filter_type": "moving_average",
+    "calibration_offset": 0,
+    "calibration_multiplier": 1.02,
+    "deadband": 5
+  },
+  "power_supply": {
+    "type": "loop_powered",
+    "voltage_v": 24
+  },
+  "environmental_rating": {
+    "ip_rating": "IP67",
+    "operating_temp_min_c": -40,
+    "operating_temp_max_c": 80,
+    "operating_humidity_max_percent": 100
+  },
+  "manufacturer_info": {
+    "manufacturer": "SolarSense Technologies",
+    "model": "SS-PYR-100",
+    "serial_number": "PYR-2021-0042",
+    "firmware_version": "2.1.0",
+    "manufacture_date": "2021-02-15"
+  },
+  "calibration": {
+    "last_date": "2024-06-01",
+    "next_date": "2026-06-01",
+    "method": "ISO 9847",
+    "certificate_number": "ISO-2024-GHI-567"
+  },
+  "maintenance_info": {
+    "last_maintenance": "2024-12-01T08:00:00Z",
+    "next_maintenance": "2025-03-01T08:00:00Z",
+    "maintenance_interval_days": 90
+  },
+  "alarms": {
+    "high_threshold": 1200,
+    "high_high_threshold": 1400,
+    "low_threshold": 0,
+    "rate_of_change_threshold": 500
+  },
+  "status": "active",
+  "metadata": {
+    "spectral_range": "285-2800nm",
+    "temperature_dependency": "<0.1%/K",
+    "cosine_response": "<10W/m2",
+    "cleaning_required": false,
+    "data_logger_channel": 1
+  },
+  "created_at": "2021-05-01T08:00:00Z",
+  "updated_at": "2025-01-15T10:30:00Z"
+}
